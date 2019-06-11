@@ -1,67 +1,61 @@
 <template>
-  <section class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        jaketify
-      </h1>
-      <h2 class="subtitle">
-        My marvelous Nuxt.js project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green"
-          >Documentation</a
-        >
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-          >GitHub</a
-        >
+  <div class="container">
+    <template v-if="images.length > 0">
+      <div v-for="(img, index) in images" :key="index">
+        <img :src="img[1].url" class="image" />
       </div>
-    </div>
-  </section>
+    </template>
+    <template v-else>
+      ...
+    </template>
+    <template v-if="loading">
+      <div v-for="index in 10" :key="`loaing-${index}`">
+        <div class="loaing"></div>
+      </div>
+    </template>
+  </div>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import { Items, Image } from '@/types/response'
 
-export default {
-  components: {
-    Logo
+@Component({})
+export default class IndexPage extends Vue {
+  images: Image[][] = []
+  loading: boolean = false
+
+  async created() {
+    this.loading = true
+    try {
+      const { data }: { data: Items } = await this.$axios.get('/jackets')
+
+      const { items } = data
+      const images = Object.keys(items).map(key => items[key].images)
+      this.images = images
+    } catch (__) {
+    } finally {
+      this.loading = false
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .container {
-  margin: 0 auto;
-  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  flex-wrap: wrap;
 }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+.image {
+  width: 200px;
+  height: auto;
+  vertical-align: text-bottom;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.loaing {
+  width: 200px;
+  height: 200px;
+  vertical-align: text-bottom;
 }
 </style>

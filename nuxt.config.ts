@@ -39,7 +39,9 @@ const config: NuxtConfiguration = {
   /*
    ** Axios module configuration
    */
-  axios: {}
+  axios: {
+    baseURL: 'https://api.jacketify.mahoroi.com/v1/'
+  }
 }
 
 export default config
