@@ -51,6 +51,12 @@ const config: NuxtConfiguration = {
    */
   axios: {
     baseURL: 'https://api.jacketify.mahoroi.com/v1/'
+  },
+
+  watchers: {
+    webpack: {
+      poll: true
+    }
   }
 }
 

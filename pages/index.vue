@@ -2,10 +2,7 @@
   <div class="container" :style="containerStyle">
     <template v-if="displayIds.length > 0">
       <div v-for="(id, index) in displayIds" :key="index">
-        <img
-          :src="item(id)[1] ? item(id)[1].url : item(id)[0].url"
-          class="image"
-        />
+        <JacketImage :src="item(id)[1] ? item(id)[1].url : item(id)[0].url" />
       </div>
     </template>
     <template v-else>
@@ -16,7 +13,9 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import { Items, Image } from '@/types/response'
+import { Image } from '@/types/response'
+import JacketImage from '@/components/atoms/JacketImage.vue'
+import * as jacketsHttp from '@/http/jackets.http'
 
 const { ceil, floor, min } = Math
 
@@ -25,7 +24,11 @@ const SHOW_MAX_ITEM_COUNT = 30
 const MAX_COL = 7
 const MARGIN_ROW = 1
 
-@Component({})
+@Component({
+  components: {
+    JacketImage
+  }
+})
 export default class IndexPage extends Vue {
   ids: string[] = []
   images: Map<string, Image[]> = new Map()
@@ -56,7 +59,7 @@ export default class IndexPage extends Vue {
 
     this.loading = true
     try {
-      const { data }: { data: Items } = await this.$axios.get('/jackets')
+      const { data } = await jacketsHttp.get()
       const { items } = data
 
       const ids: string[] = []
@@ -141,12 +144,6 @@ export default class IndexPage extends Vue {
   display: flex;
   flex-wrap: wrap;
   max-width: 1400px; /* 200*7 */
-}
-
-.image {
-  width: 200px;
-  height: auto;
-  vertical-align: text-bottom;
 }
 
 .loaing {
