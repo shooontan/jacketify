@@ -21,6 +21,7 @@
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "@nuxt/typescript": "^2.7.1",
     "@nuxtjs/eslint-config": "^0.0.1",
+    "@types/jest": "^24.0.15",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-core": "7.0.0-bridge.0",
@@ -41,6 +42,7 @@
     "jest": "^24.1.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.16.4",
+    "ts-jest": "^24.0.2",
     "ts-node": "^8.2.0",
     "vue-jest": "^3.0.3"
   }
