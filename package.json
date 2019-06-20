@@ -12,8 +12,9 @@
     "test": "jest --coverage"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.3.6",
     "cross-env": "^5.2.0",
+    "ky": "^0.11.1",
+    "ky-universal": "^0.2.1",
     "nuxt": "^2.4.0",
     "vue-property-decorator": "^8.1.1"
   },

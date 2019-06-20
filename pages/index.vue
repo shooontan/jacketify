@@ -59,8 +59,7 @@ export default class IndexPage extends Vue {
 
     this.loading = true
     try {
-      const { data } = await jacketsHttp.get()
-      const { items } = data
+      const { items } = await jacketsHttp.get()
 
       const ids: string[] = []
 

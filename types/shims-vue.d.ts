@@ -5,10 +5,8 @@ declare module '*.vue' {
 
 declare module 'vue/types/vue' {
   import VueRouter from 'vue-router'
-  import { NuxtAxiosInstance } from '@nuxtjs/axios'
 
   interface Vue {
     $router: VueRouter
-    $axios: NuxtAxiosInstance
   }
 }

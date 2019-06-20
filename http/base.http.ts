@@ -1,8 +1,11 @@
-import axios from 'axios'
+import ky from 'ky-universal'
 
-export const baseURL = 'https://api.jacketify.mahoroi.com/v1/'
-export const timeout = 3000
+export const prefixUrl = 'https://api.jacketify.mahoroi.com/v1/'
+export const timeout = 10000
 
-const http = axios.create({ baseURL, timeout })
+const http = ky.create({
+  prefixUrl,
+  timeout
+})
 
 export default http

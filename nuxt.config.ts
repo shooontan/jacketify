@@ -16,14 +16,14 @@ const config: NuxtConfiguration = {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
-      {
-        src: `https://polyfill.io/v3/polyfill.min.js?features=${[
-          'IntersectionObserver',
-          'Map',
-          'Set'
-        ].join('%2C')}`,
-        type: 'text/javascript'
-      }
+      // {
+      //   src: `https://polyfill.io/v3/polyfill.min.js?features=${[
+      //     'IntersectionObserver',
+      //     'Map',
+      //     'Set'
+      //   ].join('%2C')}`,
+      //   type: 'text/javascript'
+      // }
     ]
   },
 
@@ -43,14 +43,36 @@ const config: NuxtConfiguration = {
   plugins: [],
 
   /*
-   ** Nuxt.js modules
+   ** modules
    */
-  modules: ['@nuxtjs/axios'],
-  /*
-   ** Axios module configuration
-   */
-  axios: {
-    baseURL: 'https://api.jacketify.mahoroi.com/v1/'
+  modules: [],
+
+  build: {
+    extend(config) {
+      if (config.module) {
+        config.module.rules.unshift({
+          test: /ky.*?\.js$/i, // transpile for ky
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  [
+                    '@babel/preset-env',
+                    {
+                      targets: {
+                        node: 'current',
+                        edge: 17
+                      }
+                    }
+                  ]
+                ]
+              }
+            }
+          ]
+        })
+      }
+    }
   },
 
   watchers: {
