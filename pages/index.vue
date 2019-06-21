@@ -15,7 +15,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Image } from '@/types/response'
 import JacketImage from '@/components/atoms/JacketImage.vue'
-import * as jacketsHttp from '@/http/jackets.http'
+import * as jacketsApi from '@/api/jacketsApi'
 
 const { ceil, floor, min } = Math
 
@@ -59,7 +59,7 @@ export default class IndexPage extends Vue {
 
     this.loading = true
     try {
-      const { items } = await jacketsHttp.get()
+      const { items } = await jacketsApi.get()
 
       const ids: string[] = []
 

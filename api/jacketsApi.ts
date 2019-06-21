@@ -1,4 +1,4 @@
-import ky from '@/http/base.http'
+import ky from '@/utils/http'
 import { Items } from '@/types/response'
 
 /**
