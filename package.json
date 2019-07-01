@@ -1,7 +1,7 @@
 {
-  "name": "jaketify",
-  "version": "1.0.0",
-  "description": "",
+  "name": "jacketify",
+  "version": "0.0.1",
+  "description": "music jacket gallery web site.",
   "author": "shooontan",
   "scripts": {
     "dev": "nuxt -H 0.0.0.0",

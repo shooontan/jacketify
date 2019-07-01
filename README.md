@@ -1,22 +1,26 @@
-# jaketify
+# Jacketify
 
-> My marvelous Nuxt.js project
+Music Jacket Gallery Site.
 
-## Build Setup
+Web Page: [Jacketify](https://jacketify.mahoroi.com)
+
+## How to enjoy
+
+1. go [Jacketify](https://jacketify.mahoroi.com).
+1. scroll page.
+1. scroll page.
+1. scroll page.
+1. ...
+
+## Development
 
 ``` bash
 # install dependencies
-$ yarn install
+yarn
 
 # serve with hot reload at localhost:3000
-$ yarn run dev
-
-# build for production and launch server
-$ yarn run build
-$ yarn start
+yarn dev
 
 # generate static project
-$ yarn run generate
+yarn generate
 ```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
