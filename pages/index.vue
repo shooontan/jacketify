@@ -16,6 +16,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Image } from '@/types/response'
 import JacketImage from '@/components/atoms/JacketImage.vue'
 import * as jacketsApi from '@/api/jacketsApi'
+import sleep from '@/utils/sleep'
 
 const { ceil, floor, min } = Math
 
@@ -49,6 +50,20 @@ export default class IndexPage extends Vue {
       await this.get()
       addEventListener('scroll', this.scroll)
       addEventListener('resize', this.resize)
+
+      await sleep(1000)
+
+      const MAX_FETCH_COUNT = 10
+      const JACKET_ROW_MARGIN = 2
+
+      for (const _ of new Array(MAX_FETCH_COUNT).fill(0)) {
+        const JACKET_ROW = this.ids.length / this.col - JACKET_ROW_MARGIN
+        if (window.innerHeight > JACKET_ROW * HEIGHT) {
+          await Promise.all([sleep(1500), this.get()])
+        } else {
+          break
+        }
+      }
     }
   }
 
