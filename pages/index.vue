@@ -1,8 +1,12 @@
 <template>
   <div class="container" :style="containerStyle">
     <template v-if="displayIds.length > 0">
-      <div v-for="(id, index) in displayIds" :key="index">
-        <JacketImage :src="item(id)[1] ? item(id)[1].url : item(id)[0].url" />
+      <div v-for="ids in displayIds" :key="ids.join('-')">
+        <JacketImage
+          v-for="id in ids"
+          :key="id"
+          :src="item(id)[1] ? item(id)[1].url : item(id)[0].url"
+        />
       </div>
     </template>
     <template v-else>
@@ -93,6 +97,7 @@ export default class IndexPage extends Vue {
 
   get displayIds() {
     const ids: string[] = []
+    const nestIds: typeof ids[] = []
     const { col, offset } = this
 
     for (
@@ -105,7 +110,13 @@ export default class IndexPage extends Vue {
       }
     }
 
-    return ids
+    for (let index = 0; index < Math.ceil(ids.length / col); index++) {
+      const nestIndex = index * col
+      const nestItem = ids.slice(nestIndex, nestIndex + col)
+      nestIds.push(nestItem)
+    }
+
+    return nestIds
   }
 
   get containerStyle() {
