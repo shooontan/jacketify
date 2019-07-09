@@ -25,9 +25,7 @@ import sleep from '@/utils/sleep'
 const { ceil, floor, min } = Math
 
 const HEIGHT = 200
-const SHOW_MAX_ITEM_COUNT = 30
 const MAX_COL = 7
-const MARGIN_ROW = 1
 
 @Component({
   components: {
@@ -40,10 +38,11 @@ export default class IndexPage extends Vue {
   loading: boolean = false
   observer: IntersectionObserver | undefined = undefined
 
-  position = {
-    x: 0,
-    y: 0
-  }
+  pagePositionX = 0
+  pagePositionY = 0
+
+  innerWidth = 0
+  innerHeight = 0
 
   offset = 0
   col = 7
@@ -98,11 +97,11 @@ export default class IndexPage extends Vue {
   get displayIds() {
     const ids: string[] = []
     const nestIds: typeof ids[] = []
-    const { col, offset } = this
+    const { col, offset, innerHeight } = this
 
     for (
       let index = offset;
-      index < offset + SHOW_MAX_ITEM_COUNT + MARGIN_ROW * col;
+      index < offset + ceil(innerHeight / HEIGHT + 2) * col;
       index++
     ) {
       if (this.ids[index]) {
@@ -131,13 +130,8 @@ export default class IndexPage extends Vue {
   }
 
   get paddingBottom() {
-    const { col } = this
-    return (
-      (ceil(this.ids.length / col) -
-        ceil(this.offset / col) -
-        ceil(this.displayIds.length / col)) *
-      HEIGHT
-    )
+    const { col, ids, pagePositionY, innerHeight } = this
+    return ceil(ids.length / col) * HEIGHT - pagePositionY - innerHeight
   }
 
   item(id) {
@@ -146,19 +140,22 @@ export default class IndexPage extends Vue {
   }
 
   scroll() {
-    this.position.y = window.pageYOffset
-    this.offset = floor(this.position.y / HEIGHT) * this.col
+    this.pagePositionY = window.pageYOffset
+    this.offset = floor(this.pagePositionY / HEIGHT) * this.col
   }
 
   resize() {
-    this.position.x = window.innerWidth
-    this.col = min(floor(this.position.x / HEIGHT), MAX_COL)
+    this.innerWidth = window.innerWidth
+    this.innerHeight = window.innerHeight
+    this.col = min(floor(this.innerWidth / HEIGHT), MAX_COL)
   }
 
   @Watch('offset')
-  onchangeOffset() {
-    if (this.paddingBottom / HEIGHT < 3) {
-      this.get()
+  async onchangeOffset() {
+    const { paddingBottom } = this
+    const isMore = ceil(paddingBottom / HEIGHT) < 3
+    if (isMore) {
+      await this.get()
     }
   }
 }
