@@ -82,7 +82,11 @@ export default class IndexPage extends Vue {
       const ids: string[] = []
 
       Object.keys(items).forEach(id => {
+        // filter no image jacket item
         const item = items[id].images
+        if (!item.length) {
+          return
+        }
         ids.push(id)
         this.images.set(id, item)
       })
