@@ -24,7 +24,7 @@ import sleep from '@/utils/sleep'
 
 const { ceil, floor, min } = Math
 
-const HEIGHT = 200
+const HEIGHT = 260
 const MAX_COL = 7
 
 @Component({
@@ -119,13 +119,20 @@ export default class IndexPage extends Vue {
       nestIds.push(nestItem)
     }
 
+    // remove row if col is not this.col
+    const nestIdsLastIndex = nestIds.length - 1
+    if (nestIds[nestIdsLastIndex] && nestIds[nestIdsLastIndex].length !== col) {
+      nestIds.pop()
+    }
+
     return nestIds
   }
 
   get containerStyle() {
     return {
       'padding-top': `${this.paddingTop}px`,
-      'padding-bottom': `${this.paddingBottom}px`
+      'padding-bottom': `${this.paddingBottom}px`,
+      'max-width': `${HEIGHT * MAX_COL}px`
     }
   }
 
@@ -169,7 +176,8 @@ export default class IndexPage extends Vue {
 .container {
   display: flex;
   flex-wrap: wrap;
-  max-width: 1400px; /* 200*7 */
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .loaing {

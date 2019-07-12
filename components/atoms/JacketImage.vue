@@ -6,7 +6,7 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import sleep from '@/utils/sleep'
 
-const LOADING_IMG = 'https://placehold.jp/666666/666666/200x200.png'
+const LOADING_IMG = 'https://placehold.jp/333333/333333/10x10.png'
 
 @Component({})
 export default class JacketImage extends Vue {
@@ -49,8 +49,9 @@ export default class JacketImage extends Vue {
 
 <style scoped>
 .jacket {
-  width: 200px;
-  height: 200px;
+  width: 260px;
+  height: 260px;
+  padding: 6px;
   vertical-align: bottom;
 }
 </style>

@@ -8,7 +8,7 @@ describe('JacketImage', () => {
     expect(wrapper.classes()).toContain('jacket')
     expect(wrapper.is('img')).toBe(true)
     expect(wrapper.attributes('src')).toBe(
-      'https://placehold.jp/666666/666666/200x200.png'
+      'https://placehold.jp/333333/333333/10x10.png'
     )
   })
 
