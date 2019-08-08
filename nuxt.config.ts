@@ -73,12 +73,6 @@ const config: NuxtConfiguration = {
         })
       }
     }
-  },
-
-  watchers: {
-    webpack: {
-      poll: true
-    }
   }
 }
 
